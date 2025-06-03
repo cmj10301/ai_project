@@ -1,5 +1,7 @@
 //ai_project/app/(home)/page.js
 
+import Db_test from "@/components/db_test";
+
 export const metadata = {
   title: 'AI_service',
   description: 'AI_service',
@@ -13,6 +15,7 @@ export default function Home() {
         검색하다가 길을 잃으셨나요?<br />
         잊혀진 목적지를 AI가 함께 찾아드립니다.
       </p>
+      {/* <Db_test/> */}
       <img
         src="/ai_thinking.gif"
         alt="AI thinking"
