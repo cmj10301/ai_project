@@ -1,7 +1,6 @@
 //ai_project/components/db_test.js
 'use client'
 import { useEffect, useState } from "react";
-console.log("✅ Db_test 컴포넌트 로드됨")
 
 export default function Db_test() {
     const [posts, setPosts] = useState([])
