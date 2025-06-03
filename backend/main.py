@@ -45,3 +45,6 @@ async def feedback_api(req: FeedbackRequest):
     }
     feedback_collection.insert_one(doc)
     return {"message": "Feedback saved"}
+
+from backend.api import image
+app.include_router(image.router)
