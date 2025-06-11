@@ -13,18 +13,16 @@ def predict_sketch(base64_image: str) -> str:
     header, encoded = base64_image.split(',', 1)
     image_bytes = base64.b64decode(encoded)
 
+    # 1. 28x28 흑백 이미지로 변환
     img = Image.open(io.BytesIO(image_bytes)).convert('L').resize((28, 28))
     img_np = np.array(img).astype(np.float32) / 255.0
-    img_np = img_np.reshape(1, 28, 28, 1)
+    img_np = img_np.reshape(1, 28, 28, 1)  # ⚠️ MobileNetV2 모델이 28x28x1을 받아야 함
 
-    # ✅ MobileNetV2 입력 규격에 맞게 전처리
-    img_tf = tf.image.resize(img_np, [96, 96])
-    img_tf = tf.image.grayscale_to_rgb(img_tf)
+    # 2. 예측
+    preds = model.predict(img_np)
 
-    preds = model.predict(img_tf)
-    
-
-    print("🔍 raw prediction:", preds)  # 확률 벡터 출력
+    # 3. 디버깅용 출력
+    print("🔍 raw prediction:", preds)
     print("🔍 predicted index:", np.argmax(preds))
     print("🔍 predicted class:", class_names[np.argmax(preds)])
     print("🔍 top 5 predictions:", sorted(
