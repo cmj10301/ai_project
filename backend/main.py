@@ -1,9 +1,11 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from backend.ai.sketch_predict import predict_sketch
 from pydantic import BaseModel
 from datetime import datetime
 from backend.mongoDBConnect import feedback_collection
+from backend.ai.category_classifier import hybrid_category_classifier
+
 
 from dotenv import load_dotenv
 load_dotenv()
@@ -45,3 +47,9 @@ async def feedback_api(req: FeedbackRequest):
     }
     feedback_collection.insert_one(doc)
     return {"message": "Feedback saved"}
+
+@app.post("/api/classify")
+async def classify_api(request: dict):
+    text = request.get("text", "")
+    result = hybrid_category_classifier(text)
+    return result

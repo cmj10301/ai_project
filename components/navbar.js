@@ -15,7 +15,7 @@ export default function Navbar() {
           <a className="nav-link" href="/ai_image">AI 이미지</a>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="/history">기록</a>
+          <a className="nav-link" href="/ai_history">기록</a>
         </li>
       </ul>
     </nav>
